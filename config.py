@@ -16,11 +16,17 @@ CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY")
 # Notion
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 
-# Авторизованные пользователи
-USERS = {
-    # user_id: {"name": "...", "lang": "ru|pl|en", "db_prefix": "user1|user2"}
-    # Заполнить реальными ID
-}
+# Авторизованные пользователи (из .env)
+_user1_id = os.getenv("USER1_ID")
+_user1_lang = os.getenv("USER1_LANG", "ru")
+_user2_id = os.getenv("USER2_ID")
+_user2_lang = os.getenv("USER2_LANG", "pl")
+
+USERS = {}
+if _user1_id:
+    USERS[int(_user1_id)] = {"name": "user1", "lang": _user1_lang, "db_prefix": "user1"}
+if _user2_id:
+    USERS[int(_user2_id)] = {"name": "user2", "lang": _user2_lang, "db_prefix": "user2"}
 
 # Notion базы данных
 NOTION_DB = {
