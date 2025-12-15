@@ -1,19 +1,22 @@
 """
 Фабрики клавиатур
 """
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from locales import get_text
 
+# Persistent keyboard buttons
+BTN_MINE = "📝"
+BTN_SHARED = "📋"
+BTN_TAROT = "🃏"
+BTN_TRANSPORT = "🚌"
 
-def get_main_menu_keyboard(lang: str) -> InlineKeyboardMarkup:
-    """Главное меню"""
-    keyboard = [
-        [InlineKeyboardButton(f"📝 {get_text(lang, 'menu_mine')}", callback_data="menu_mine")],
-        [InlineKeyboardButton(f"📋 {get_text(lang, 'menu_shared')}", callback_data="menu_shared")],
-        [InlineKeyboardButton(f"🃏 {get_text(lang, 'menu_tarot')}", callback_data="menu_tarot")],
-        [InlineKeyboardButton(f"🚌 {get_text(lang, 'menu_bus')}", callback_data="menu_bus")],
-    ]
-    return InlineKeyboardMarkup(keyboard)
+
+def get_persistent_keyboard() -> ReplyKeyboardMarkup:
+    """Главное меню — persistent keyboard внизу экрана"""
+    return ReplyKeyboardMarkup(
+        [[BTN_MINE, BTN_SHARED], [BTN_TAROT, BTN_TRANSPORT]],
+        resize_keyboard=True
+    )
 
 
 def get_mine_menu_keyboard(lang: str) -> InlineKeyboardMarkup:
@@ -23,7 +26,6 @@ def get_mine_menu_keyboard(lang: str) -> InlineKeyboardMarkup:
         [InlineKeyboardButton(f"🌙 {get_text(lang, 'mine_dream')}", callback_data="mine_dream")],
         [InlineKeyboardButton(f"♈ {get_text(lang, 'mine_zodiac')}", callback_data="mine_zodiac")],
         [InlineKeyboardButton(f"✅ {get_text(lang, 'mine_todo')}", callback_data="mine_todo")],
-        [InlineKeyboardButton(f"⬅️ {get_text(lang, 'back')}", callback_data="menu_main")],
     ]
     return InlineKeyboardMarkup(keyboard)
 
@@ -47,7 +49,6 @@ def get_shared_menu_keyboard(lang: str) -> InlineKeyboardMarkup:
             InlineKeyboardButton(f"✅ {get_text(lang, 'shared_todo')}", callback_data="shared_todo"),
             InlineKeyboardButton(f"📅 {get_text(lang, 'shared_events')}", callback_data="shared_events"),
         ],
-        [InlineKeyboardButton(f"⬅️ {get_text(lang, 'back')}", callback_data="menu_main")],
     ]
     return InlineKeyboardMarkup(keyboard)
 
@@ -59,18 +60,16 @@ def get_tarot_menu_keyboard(lang: str) -> InlineKeyboardMarkup:
         [InlineKeyboardButton(f"📖 {get_text(lang, 'tarot_diary')}", callback_data="tarot_diary")],
         [InlineKeyboardButton(f"📊 {get_text(lang, 'tarot_stats')}", callback_data="tarot_stats")],
         [InlineKeyboardButton(f"🎴 {get_text(lang, 'tarot_cards_db')}", callback_data="tarot_cards_db")],
-        [InlineKeyboardButton(f"⬅️ {get_text(lang, 'back')}", callback_data="menu_main")],
     ]
     return InlineKeyboardMarkup(keyboard)
 
 
-def get_bus_menu_keyboard(lang: str) -> InlineKeyboardMarkup:
-    """Меню 'Автобусы'"""
+def get_transport_menu_keyboard(lang: str) -> InlineKeyboardMarkup:
+    """Меню 'Транспорт'"""
     keyboard = [
-        [InlineKeyboardButton("🔍 Найти маршрут", callback_data="bus_search")],
-        [InlineKeyboardButton("⭐ Избранные", callback_data="bus_favorites")],
-        [InlineKeyboardButton("🕐 Ближайшие", callback_data="bus_nearest")],
-        [InlineKeyboardButton(f"⬅️ {get_text(lang, 'back')}", callback_data="menu_main")],
+        [InlineKeyboardButton(f"🔍 {get_text(lang, 'transport_search')}", callback_data="transport_search")],
+        [InlineKeyboardButton(f"⭐ {get_text(lang, 'transport_favorites')}", callback_data="transport_favorites")],
+        [InlineKeyboardButton(f"🕐 {get_text(lang, 'transport_nearest')}", callback_data="transport_nearest")],
     ]
     return InlineKeyboardMarkup(keyboard)
 

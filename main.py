@@ -5,7 +5,8 @@ import logging
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters
 
 from config import TELEGRAM_TOKEN
-from core.menu import start_command, menu_command, handle_menu_callback
+from core.menu import start_command, menu_command, handle_menu_callback, handle_persistent_buttons
+from core.keyboards import BTN_MINE, BTN_SHARED, BTN_TAROT, BTN_TRANSPORT
 
 # Настройка логирования
 logging.basicConfig(
@@ -30,14 +31,20 @@ def main():
     app.add_handler(CommandHandler("start", start_command))
     app.add_handler(CommandHandler("menu", menu_command))
 
-    # Callback handlers для меню
+    # Callback handlers для inline меню
     app.add_handler(CallbackQueryHandler(handle_menu_callback))
+
+    # Handler для persistent keyboard кнопок
+    app.add_handler(MessageHandler(
+        filters.TEXT & filters.Regex(f"^({BTN_MINE}|{BTN_SHARED}|{BTN_TAROT}|{BTN_TRANSPORT})$"),
+        handle_persistent_buttons
+    ))
 
     # TODO: Добавить handlers для модулей
     # - modules.mine.handlers
     # - modules.shared.handlers
     # - modules.tarot.handlers
-    # - modules.bus.handlers
+    # - modules.transport.handlers
 
     # Запуск
     logger.info("Bot is running...")

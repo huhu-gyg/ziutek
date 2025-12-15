@@ -8,7 +8,12 @@ STRINGS = {
     "menu_mine": "Moje",
     "menu_shared": "Wspolne",
     "menu_tarot": "Tarot",
-    "menu_bus": "Autobusy",
+    "menu_transport": "Transport",
+
+    # Transport
+    "transport_search": "Znajdz trase",
+    "transport_favorites": "Ulubione",
+    "transport_nearest": "Najblizsze",
 
     # Moje
     "mine_idea": "Pomysl",
